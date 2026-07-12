@@ -44,21 +44,31 @@ nova).
 
 ## 3. Nomenclatura das MCP tools
 
-**Decisão**: nomes de tool/parâmetro em **inglês** (`search_docs`,
-`get_document`, `list_documents`), descrições (`description` exibida ao
-agente) também em inglês por serem sobre a documentação oficial do FastAPI
-(em inglês); prosa de design/specs/comentários do projeto continua em pt-BR.
+**Decisão** (revisada em 2026-07-12 — ver Nota de revisão abaixo): nomes de
+tool e de parâmetro/campo em **português brasileiro**:
+`buscar_documentos`, `obter_documento`, `listar_documentos`; parâmetros e
+campos `consulta`, `id_documento`, `titulo`, `conteudo`, `trecho`,
+`pontuacao`, `limite_resultados`. Descrições (`description` exibida ao
+agente) também em pt-BR, pela mesma razão.
 
-**Motivo**: Princípio V da constituição trata identificadores técnicos de
-protocolo/framework como "termos técnicos padrão de mercado" — seguem a
-convenção usual (inglês), assim como nomes de tools MCP em geral no
-ecossistema. O que é pt-BR é o vocabulário de domínio do *projeto*
-(specs, comentários, comunicação), não a superfície de protocolo consumida
-por qualquer cliente MCP.
+**Motivo**: Princípio V trata como "técnico em inglês" os *padrões de
+código* (`Repository`/`Service`/`handler`) e siglas de mercado (MCP, API,
+TDD) — não a superfície de tool exposta ao agente, que é vocabulário do
+domínio deste projeto tanto quanto specs e comentários. Não há razão para a
+fronteira pt-BR parar no código e não chegar até o nome da tool que o
+próprio projeto define e expõe.
 
-**Alternativas consideradas**: nomes de tool em pt-BR (`buscar_documentos`)
-— rejeitado por destoar da convenção do ecossistema MCP e por não ser
-"vocabulário de negócio" no sentido do Princípio V.
+**Alternativas consideradas**: nomes de tool em inglês (`search_docs`) —
+era a decisão original deste documento; revertida por não refletir
+corretamente o Princípio V (ver nota abaixo). Conteúdo dos documentos de
+referência em si (`docs/references/*.md`, citados pelas tools) permanece em
+inglês, pois é reprodução fiel da documentação oficial do FastAPI — isso não
+muda com esta revisão.
+
+> **Nota de revisão**: a decisão original deste documento (nomes de tool em
+> inglês) foi corrigida pelo mantenedor por estar incorreta quanto à
+> aplicação do Princípio V. Ver `data-model.md` e `contracts/mcp-tools.md`
+> para os nomes atualizados.
 
 ## 4. Carregamento do corpus
 
@@ -78,7 +88,7 @@ exigem atualização sem restart).
 
 **Decisão**: o identificador é o **nome do arquivo sem extensão** dentro de
 `docs/references/` (ex.: `08 Background Tasks - BackgroundTasks`), usado tanto no
-resultado de busca/listagem quanto como parâmetro de `get_document`.
+resultado de busca/listagem quanto como parâmetro de `obter_documento`.
 
 **Motivo**: já é único por construção (checado na carga do corpus) e legível
 — cobre FR-002/FR-003/FR-004 sem precisar inventar um esquema de IDs

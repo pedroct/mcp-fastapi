@@ -2,11 +2,11 @@
 
 **Feature**: `001-search-fastapi-docs` | **Data**: 2026-07-12
 
-Três MCP tools, nomes e parâmetros em inglês (ver `research.md` §3).
-Formato de schema: JSON Schema, como o MCP Python SDK espera para
-`inputSchema`.
+Três MCP tools, nomes e parâmetros em português brasileiro (ver
+`research.md` §3). Formato de schema: JSON Schema, como o MCP Python SDK
+espera para `inputSchema`.
 
-## `search_docs`
+## `buscar_documentos`
 
 Cobre User Story 1 (P1) — FR-001, FR-002, FR-005, FR-006, FR-008.
 
@@ -15,9 +15,9 @@ Cobre User Story 1 (P1) — FR-001, FR-002, FR-005, FR-006, FR-008.
 {
   "type": "object",
   "properties": {
-    "query": { "type": "string", "minLength": 1, "description": "Search text (topic, keyword, or short phrase)" }
+    "consulta": { "type": "string", "minLength": 1, "description": "Texto de busca (tópico, palavra-chave ou frase curta)" }
   },
-  "required": ["query"]
+  "required": ["consulta"]
 }
 ```
 
@@ -25,19 +25,19 @@ Cobre User Story 1 (P1) — FR-001, FR-002, FR-005, FR-006, FR-008.
 ```json
 [
   {
-    "document_id": "08 Background Tasks - BackgroundTasks",
-    "title": "Background Tasks - BackgroundTasks",
-    "excerpt": "...trecho onde o termo buscado aparece...",
-    "score": 0.83
+    "id_documento": "08 Background Tasks - BackgroundTasks",
+    "titulo": "Background Tasks - BackgroundTasks",
+    "trecho": "...trecho onde o termo buscado aparece...",
+    "pontuacao": 0.83
   }
 ]
 ```
 
 **Erros**:
-- `query` ausente, vazia ou só espaço → erro de validação (não uma lista
+- `consulta` ausente, vazia ou só espaço → erro de validação (não uma lista
   vazia) — FR-006.
 
-## `get_document`
+## `obter_documento`
 
 Cobre User Story 2 (P2) — FR-003, FR-007.
 
@@ -46,26 +46,26 @@ Cobre User Story 2 (P2) — FR-003, FR-007.
 {
   "type": "object",
   "properties": {
-    "document_id": { "type": "string", "minLength": 1 }
+    "id_documento": { "type": "string", "minLength": 1 }
   },
-  "required": ["document_id"]
+  "required": ["id_documento"]
 }
 ```
 
 **Output**:
 ```json
 {
-  "document_id": "08 Background Tasks - BackgroundTasks",
-  "title": "Background Tasks - BackgroundTasks",
-  "content": "...conteúdo markdown completo e sem modificação..."
+  "id_documento": "08 Background Tasks - BackgroundTasks",
+  "titulo": "Background Tasks - BackgroundTasks",
+  "conteudo": "...conteúdo markdown completo e sem modificação..."
 }
 ```
 
 **Erros**:
-- `document_id` que não existe no corpus → resposta clara de "não
+- `id_documento` que não existe no corpus → resposta clara de "não
   encontrado" (não uma exceção não tratada) — FR-007.
 
-## `list_documents`
+## `listar_documentos`
 
 Cobre User Story 3 (P3) — FR-004, FR-010.
 
@@ -74,21 +74,22 @@ Cobre User Story 3 (P3) — FR-004, FR-010.
 **Output** (todos os documentos do corpus):
 ```json
 [
-  { "document_id": "01 FastAPI class", "title": "FastAPI class" },
-  { "document_id": "02 Request Parameters", "title": "Request Parameters" }
+  { "id_documento": "01 FastAPI class", "titulo": "FastAPI class" },
+  { "id_documento": "02 Request Parameters", "titulo": "Request Parameters" }
 ]
 ```
 
 ## Cenários de contrato (para os testes de `tests/contract/`)
 
-1. `search_docs({"query": "background tasks"})` → resultado inclui
-   `document_id` do documento de background tasks entre os 3 primeiros
+1. `buscar_documentos({"consulta": "background tasks"})` → resultado inclui
+   `id_documento` do documento de background tasks entre os 3 primeiros
    (SC-001).
-2. `search_docs({"query": "termo-que-nao-existe-em-nenhum-doc"})` → `[]`.
-3. `search_docs({"query": ""})` → erro de validação, não `[]`.
-4. `get_document({"document_id": <id válido>})` → `content` idêntico ao
+2. `buscar_documentos({"consulta": "termo-que-nao-existe-em-nenhum-doc"})` →
+   `[]`.
+3. `buscar_documentos({"consulta": ""})` → erro de validação, não `[]`.
+4. `obter_documento({"id_documento": <id válido>})` → `conteudo` idêntico ao
    arquivo fonte em `docs/references/` (SC-004).
-5. `get_document({"document_id": "nao-existe"})` → resposta "não
+5. `obter_documento({"id_documento": "nao-existe"})` → resposta "não
    encontrado", sem exceção não tratada (SC-005).
-6. `list_documents({})` → tamanho da lista igual à quantidade de arquivos em
-   `docs/references/*.md` (SC-003).
+6. `listar_documentos({})` → tamanho da lista igual à quantidade de arquivos
+   em `docs/references/*.md` (SC-003).

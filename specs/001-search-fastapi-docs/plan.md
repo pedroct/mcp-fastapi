@@ -83,8 +83,8 @@ src/
 └── mcp_fastapi/
     ├── __init__.py
     ├── __main__.py       # entrada `uv run python -m mcp_fastapi`
-    ├── server.py          # registro das MCP tools (search_docs, get_document, list_documents)
-    ├── corpus.py           # carrega e valida docs/references/*.md em ReferenceDocument
+    ├── server.py          # registro das MCP tools (buscar_documentos, obter_documento, listar_documentos)
+    ├── corpus.py           # carrega e valida docs/references/*.md em DocumentoReferencia
     └── search.py            # tokenização + ranking (stdlib)
 
 tests/
