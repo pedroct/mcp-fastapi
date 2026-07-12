@@ -57,7 +57,7 @@ casa das dezenas
 | II. Tipagem Estrita & Simplicidade (YAGNI) | PASS — busca em stdlib (sem dependência nova), sem banco, sem abstração especulativa; `mypy --strict` cobre o pacote inteiro |
 | III. Fidelidade de Contrato MCP/API | PASS — schemas em `contracts/mcp-tools.md` derivam só de `docs/references/`; nenhuma tool alega capacidade não amparada pela fonte |
 | IV. Mudanças Versionadas | PASS — feature inicial (0.x), sem contrato prévio a quebrar; versionamento fica a cargo do python-semantic-release via Conventional Commits |
-| V. Idioma — Domínio em pt-BR | PASS — este plano e os demais artefatos de design estão em pt-BR; nomes de tool/parâmetro seguem inglês por serem superfície de protocolo (ver `research.md` §3) |
+| V. Idioma — Domínio em pt-BR | PASS — este plano e os demais artefatos de design estão em pt-BR; nomes de tool/parâmetro também em pt-BR (`buscar_documentos`, `obter_documento`, `listar_documentos`) por serem vocabulário de domínio do projeto, não "termo técnico de mercado" (ver `research.md` §3, decisão revisada) |
 
 Nenhuma violação — **Complexity Tracking** não se aplica.
 
