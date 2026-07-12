@@ -1,26 +1,44 @@
 <!--
 Relatório de Impacto de Sincronização
-- Mudança de versão: 1.1.0 → 2.0.0
-- Princípios modificados:
-  - IV. Mudanças Versionadas e Revisáveis → IV. Mudanças Versionadas
-    (BACKWARD-INCOMPATIBLE: removida a exigência de revisão por PR e a
-    proibição de push direto na branch principal — projeto simples, decisão
-    explícita do mantenedor em 2026-07-12; quality gates automatizados
-    continuam obrigatórios)
-- Seções expandidas:
-  - Fluxo de Desenvolvimento & Quality Gates (gates continuam obrigatórios
-    antes de qualquer push/merge; aprovação humana vira recomendada, não
-    obrigatória)
+- Mudança de versão: 2.0.0 → 2.1.0
+- Seções adicionadas:
+  - Propósito (nova seção, logo após o título) — explicita que o objetivo
+    do mcp-fastapi é auxiliar uma LLM/agente durante o desenvolvimento real
+    de código FastAPI, ancorado nas boas práticas do próprio FastAPI, e não
+    ser um mecanismo genérico de busca de documentação. Pedido do
+    mantenedor em 2026-07-12, para checar se a constituição refletia esse
+    propósito — não refletia com clareza suficiente.
+- Princípios modificados: nenhum (Propósito é uma seção de enquadramento,
+  não redefine nenhum Princípio existente)
 - Seções removidas: nenhuma
 - Templates que precisam de atualização:
   - .specify/templates/plan-template.md ✅ nenhuma mudança necessária
   - .specify/templates/spec-template.md ✅ idem
   - .specify/templates/tasks-template.md ✅ idem
   - .specify/templates/checklist-template.md ✅ idem
+  - specs/001-search-fastapi-docs/spec.md ✅ nenhuma mudança necessária — os
+    User Stories já enquadram a busca como parte de "an AI agent working on
+    a FastAPI task", consistente com o Propósito agora explícito
 - TODOs de acompanhamento: nenhum
 -->
 
 # Constituição do mcp-fastapi
+
+## Propósito
+
+O mcp-fastapi existe para **auxiliar uma LLM/agente durante o
+desenvolvimento real de código FastAPI**, ancorando suas decisões de
+implementação nas boas práticas documentadas oficialmente pelo próprio
+FastAPI — o corpus reproduzido em `docs/references/`. Não é um mecanismo
+genérico de busca de texto: cada tool exposta deve responder "isso ajuda o
+agente a escrever FastAPI correto agora, no meio de uma tarefa de
+desenvolvimento?", não apenas "isso permite ler a documentação?".
+
+Isso enquadra a leitura dos Princípios abaixo — em especial III (Fidelidade
+de Contrato) e a "Fonte de verdade" na Stack Tecnológica — e deve orientar
+toda feature futura: prioriza-se o que muda uma decisão de implementação
+(padrão recomendado, armadilha comum, exemplo correto) sobre o que só
+resume ou reindexa prosa da documentação.
 
 ## Princípios Fundamentais
 
@@ -33,10 +51,12 @@ esperado, e só então implemente o mínimo de código para passá-lo. Nenhuma
 feature é integrada com implementação commitada antes de, ou sem, seus
 testes.
 
-**Motivo**: o valor deste projeto é servir orientação confiável sobre
-FastAPI através de tools MCP. Lógica de tool sem teste é o jeito mais rápido
+**Motivo**: o valor deste projeto é ajudar um agente a desenvolver FastAPI
+seguindo boas práticas reais (ver Propósito), com orientação confiável
+servida através de tools MCP. Lógica de tool sem teste é o jeito mais rápido
 de servir, silenciosamente, orientação errada ou desatualizada a um agente
-que não tem como conferir sozinho.
+que não tem como conferir sozinho — no meio de uma tarefa de desenvolvimento,
+onde o erro vira código.
 
 ### II. Tipagem Estrita & Simplicidade (YAGNI)
 
@@ -176,4 +196,4 @@ na seção Complexity Tracking do plano) ou a mudança MUST ser rejeitada.
 Complexidade que não possa ser justificada contra o Princípio II é motivo
 de rejeição por si só.
 
-**Versão**: 2.0.0 | **Ratificada em**: 2026-07-12 | **Última Emenda**: 2026-07-12
+**Versão**: 2.1.0 | **Ratificada em**: 2026-07-12 | **Última Emenda**: 2026-07-12
