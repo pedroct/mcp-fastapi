@@ -1,0 +1,9 @@
+{
+  "workflow": "speckit",
+  "specName": "001-search-fastapi-docs",
+  "branch": "001-search-fastapi-docs",
+  "selectedAt": "2026-07-12T17:15:34.681Z",
+  "currentStep": "specify",
+  "status": "draft",
+  "history": []
+}
