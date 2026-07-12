@@ -1,6 +1,6 @@
 [project]
 name = "mcp-fastapi"
-version = "0.1.0"
+version = "1.0.0"
 description = "Servidor MCP da documentação do FastAPI, para apoio a uma LLM durante o desenvolvimento utilizando o FastAPI."
 authors = [
     { name = "Pedro Teixeira", email = "contato@pedroct.com.br" }
