@@ -39,13 +39,16 @@ release (constituição § Stack Tecnológica)
   `tests/{contract,unit}/` conforme `plan.md` § Project Structure
 - [ ] T002 Inicializar `pyproject.toml` via `uv` (Python 3.12+), com
   dependência `mcp` (MCP Python SDK — ver `research.md` §1) e dev deps
-  `ruff`, `mypy`, `pytest`, `bandit`, `pip-audit`, `pre-commit` conforme
-  constituição § Stack Tecnológica (depende de T001)
-- [ ] T003 [P] Configurar `ruff` (lint + format) e `mypy --strict` em
+  `ruff`, `mypy`, `pytest`, `bandit`, `pip-audit`, `pre-commit`, `commitizen`
+  conforme constituição § Stack Tecnológica (depende de T001)
+- [ ] T003 [P] Configurar `ruff` (lint + format), `mypy --strict` e
+  `[tool.commitizen]` (`name = "cz_conventional_commits"`) em
   `pyproject.toml` conforme constituição § Stack Tecnológica (depende de
   T002)
 - [ ] T004 [P] Configurar `.pre-commit-config.yaml` (hooks `ruff-check`,
-  `ruff-format`, `mypy`, `bandit`) conforme constituição § Stack Tecnológica
+  `ruff-format`, `mypy`, `bandit`, e `commitizen-check` no stage
+  `commit-msg`) conforme constituição § Stack Tecnológica / § Fluxo de
+  Desenvolvimento ("Mensagens de commit MUST seguir Conventional Commits")
   (depende de T002)
 - [ ] T005 Configurar `[tool.semantic_release]` em `pyproject.toml` (branch
   main, `version_toml`, `allow_zero_version`, `commit_parser` conventional)
@@ -100,8 +103,9 @@ aparece entre os 3 primeiros resultados (SC-001)
 
 - [ ] T012 [P] [US1] Teste de contrato de `buscar_documentos` em
   `tests/contract/test_mcp_tools.py` — cenários 1-3 de
-  `contracts/mcp-tools.md` (match no top-3, sem match → `[]`, consulta
-  vazia → erro de validação)
+  `contracts/mcp-tools.md`: cenário 1 parametrizado nos 3 termos citados na
+  spec ("background tasks", "websockets", "middleware" — SC-001), cada um
+  no top-3; sem match → `[]`; consulta vazia → erro de validação
 - [ ] T013 [P] [US1] Teste unitário de ranking em
   `tests/unit/test_search.py` — peso maior para match no título vs. corpo,
   cap em `limite_resultados` (FR-008), consulta vazia/só espaço levanta

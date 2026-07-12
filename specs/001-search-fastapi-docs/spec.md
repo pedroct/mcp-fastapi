@@ -130,12 +130,13 @@ title and identifier.
 
 ### Key Entities
 
-- **Reference Document**: One FastAPI topic guide sourced from
+- **DocumentoReferencia**: One FastAPI topic guide sourced from
   `docs/references/`. Key attributes: title, stable identifier, full text
-  content.
-- **Search Query**: The text an agent submits to find relevant documents.
-- **Search Result**: A ranked match linking a Search Query to a Reference
-  Document, including a relevance-explaining excerpt.
+  content. (Named to match `data-model.md`/`contracts/mcp-tools.md` — pt-BR
+  per Constitution Principle V.)
+- **ConsultaBusca**: The text an agent submits to find relevant documents.
+- **ResultadoBusca**: A ranked match linking a ConsultaBusca to a
+  DocumentoReferencia, including a relevance-explaining excerpt.
 
 ## Success Criteria *(mandatory)*
 

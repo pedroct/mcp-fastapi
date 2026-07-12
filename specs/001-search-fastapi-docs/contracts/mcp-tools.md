@@ -81,9 +81,12 @@ Cobre User Story 3 (P3) — FR-004, FR-010.
 
 ## Cenários de contrato (para os testes de `tests/contract/`)
 
-1. `buscar_documentos({"consulta": "background tasks"})` → resultado inclui
-   `id_documento` do documento de background tasks entre os 3 primeiros
-   (SC-001).
+1. Para cada um dos termos `"background tasks"`, `"websockets"` e
+   `"middleware"` (os 3 exemplos citados na spec — US1 e SC-001):
+   `buscar_documentos({"consulta": <termo>})` → resultado inclui o
+   `id_documento` do documento correspondente entre os 3 primeiros (SC-001
+   exige ≥90% de acerto; testar os 3 exemplos nomeados na spec é a
+   verificação mínima, não uma amostra estatística completa).
 2. `buscar_documentos({"consulta": "termo-que-nao-existe-em-nenhum-doc"})` →
    `[]`.
 3. `buscar_documentos({"consulta": ""})` → erro de validação, não `[]`.

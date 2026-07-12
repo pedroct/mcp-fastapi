@@ -21,7 +21,7 @@ externa) — ver `research.md`.
 
 ## Technical Context
 
-**Language/Version**: Python 3.12+ (Constituição v1.1.0)
+**Language/Version**: Python 3.12+ (conforme a constituição do projeto)
 
 **Primary Dependencies**: MCP Python SDK (`mcp`) para o protocolo/servidor;
 fora isso, apenas standard library (`re`, `pathlib`) — sem lib de busca
