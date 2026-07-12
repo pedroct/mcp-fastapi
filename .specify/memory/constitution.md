@@ -1,33 +1,22 @@
 <!--
 Relatório de Impacto de Sincronização
-- Mudança de versão: 1.0.0 → 1.1.0
+- Mudança de versão: 1.1.0 → 2.0.0
 - Princípios modificados:
-  - IV. Versioned, Reviewable Changes → IV. Mudanças Versionadas e Revisáveis
-    (expandido: versionamento automático via python-semantic-release +
-    Conventional Commits, em vez de apenas "semver" genérico)
-- Seções adicionadas:
-  - Princípio V. Idioma — Domínio em pt-BR, Técnica em Inglês
+  - IV. Mudanças Versionadas e Revisáveis → IV. Mudanças Versionadas
+    (BACKWARD-INCOMPATIBLE: removida a exigência de revisão por PR e a
+    proibição de push direto na branch principal — projeto simples, decisão
+    explícita do mantenedor em 2026-07-12; quality gates automatizados
+    continuam obrigatórios)
 - Seções expandidas:
-  - Stack Tecnológica & Fidelidade de Conteúdo (uv, ruff, bandit, pip-audit,
-    pytest, pre-commit, Conventional Commits + semantic-release, versões
-    pinadas; exclusão explícita de banco de dados/SQLAlchemy/Alembic e do
-    lado web/+contrato OpenAPI, por não se aplicarem a este projeto)
-  - Fluxo de Desenvolvimento & Quality Gates (lint/SAST nos gates, regra de
-    mensagem de commit)
-- Todo o documento foi traduzido para pt-BR (domínio), mantendo termos
-  técnicos padrão de mercado em inglês — conforme o novo Princípio V.
+  - Fluxo de Desenvolvimento & Quality Gates (gates continuam obrigatórios
+    antes de qualquer push/merge; aprovação humana vira recomendada, não
+    obrigatória)
 - Seções removidas: nenhuma
 - Templates que precisam de atualização:
-  - .specify/templates/plan-template.md ✅ nenhuma mudança necessária (a
-    seção Constitution Check é preenchida dinamicamente a partir deste
-    arquivo; a estrutura do template é scaffolding do framework Spec Kit,
-    não vocabulário de domínio)
+  - .specify/templates/plan-template.md ✅ nenhuma mudança necessária
   - .specify/templates/spec-template.md ✅ idem
   - .specify/templates/tasks-template.md ✅ idem
   - .specify/templates/checklist-template.md ✅ idem
-  - specs/001-search-fastapi-docs/spec.md ⚠ pendente — feature já
-    especificada em inglês antes desta emenda; considerar reescrever em
-    pt-BR numa próxima revisão, sem obrigação retroativa
 - TODOs de acompanhamento: nenhum
 -->
 
@@ -80,7 +69,7 @@ instalada do FastAPI.
 verdade sobre FastAPI. Um schema que mente sobre suas entradas/saídas, ou
 orientação que divergiu da sua origem, é pior do que nenhum servidor.
 
-### IV. Mudanças Versionadas e Revisáveis
+### IV. Mudanças Versionadas
 
 Os contratos públicos de tool/resource do servidor (nomes, parâmetros,
 formatos de retorno) são versionados via versionamento semântico
@@ -88,13 +77,17 @@ formatos de retorno) são versionados via versionamento semântico
 existente exige um bump de MAJOR e deve ser explicitada na descrição da
 mudança. O versionamento do pacote/repositório em si é automático, dirigido
 por Conventional Commits (`feat`/`fix`/`feat!`) via **python-semantic-release**
-— sem bump manual, sem PR de release. Toda mudança passa por revisão antes
-de ir para a branch principal — sem push direto.
+— sem bump manual, sem PR de release. Push direto na branch principal é
+permitido — não há exigência de PR/revisão humana para este projeto; os
+quality gates automatizados (§ Fluxo de Desenvolvimento) continuam
+obrigatórios independentemente de como a mudança chega à branch principal.
 
 **Motivo**: agentes integram com esses contratos de tool de forma
 programática; uma quebra silenciosa quebra todo chamador a jusante sem
 aviso. Automatizar o versionamento remove o risco de esquecer o bump ou de
-escrevê-lo errado à mão.
+escrevê-lo errado à mão. Exigir PR seria ceremonial demais para um projeto
+de porte simples e mantenedor único — o que protege a qualidade são os
+gates automatizados, não o processo de revisão.
 
 ### V. Idioma — Domínio em pt-BR, Técnica em Inglês
 
@@ -147,14 +140,16 @@ forçada e confusa.
 
 ## Fluxo de Desenvolvimento & Quality Gates
 
-- **Antes do merge**: type-check, lint (ruff), SAST (bandit) e a suíte de
-  testes completa MUST passar; um humano ou agente de revisão designado
-  MUST aprovar a mudança.
-- **Test-first é cobrado na revisão**: um PR que introduz lógica nova de
-  tool/resource sem um commit prévio somente-de-teste (ou evidência
-  equivalente) MUST ser devolvido ao autor.
-- **Mudanças de contrato**: todo PR que toca um schema de tool/resource
-  MUST declarar o impacto de semver (PATCH/MINOR/MAJOR) na descrição.
+- **Antes de qualquer push/merge**: type-check, lint (ruff), SAST (bandit) e
+  a suíte de testes completa MUST passar. Revisão por PR é recomendada, mas
+  não obrigatória — push direto na `main` é permitido (Princípio IV).
+- **Test-first continua obrigatório** (Princípio I) mesmo sem PR: o autor
+  garante o commit prévio somente-de-teste antes de commitar a
+  implementação. Se houver revisão, a ausência dessa evidência é motivo de
+  devolução.
+- **Mudanças de contrato**: toda mudança que toca um schema de tool/resource
+  MUST declarar o impacto de semver (PATCH/MINOR/MAJOR) na mensagem de
+  commit ou no PR, quando houver um.
 - **Mensagens de commit**: MUST seguir Conventional Commits; o tipo
   (`feat`/`fix`/`feat!`/etc.) é o que dispara o bump automático de versão —
   é o único trabalho manual do processo de release.
@@ -175,10 +170,10 @@ emenda.
 - **PATCH**: esclarecimentos de texto, correções de digitação, refinamentos
   não semânticos.
 
-Todo PR e toda revisão MUST verificar conformidade com os Princípios
-Fundamentais acima. Qualquer desvio MUST ser justificado por escrito (ex.:
+Toda mudança MUST honrar os Princípios Fundamentais acima, revisada em PR ou
+não (Princípio IV). Qualquer desvio MUST ser justificado por escrito (ex.:
 na seção Complexity Tracking do plano) ou a mudança MUST ser rejeitada.
 Complexidade que não possa ser justificada contra o Princípio II é motivo
 de rejeição por si só.
 
-**Versão**: 1.1.0 | **Ratificada em**: 2026-07-12 | **Última Emenda**: 2026-07-12
+**Versão**: 2.0.0 | **Ratificada em**: 2026-07-12 | **Última Emenda**: 2026-07-12

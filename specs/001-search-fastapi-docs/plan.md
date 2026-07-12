@@ -56,7 +56,7 @@ casa das dezenas
 | I. Test-First (TDD) | PASS — `tasks.md` vai sequenciar testes de contrato/unitários antes da implementação de cada tool |
 | II. Tipagem Estrita & Simplicidade (YAGNI) | PASS — busca em stdlib (sem dependência nova), sem banco, sem abstração especulativa; `mypy --strict` cobre o pacote inteiro |
 | III. Fidelidade de Contrato MCP/API | PASS — schemas em `contracts/mcp-tools.md` derivam só de `docs/references/`; nenhuma tool alega capacidade não amparada pela fonte |
-| IV. Mudanças Versionadas e Revisáveis | PASS — feature inicial (0.x), sem contrato prévio a quebrar; versionamento fica a cargo do python-semantic-release via Conventional Commits |
+| IV. Mudanças Versionadas | PASS — feature inicial (0.x), sem contrato prévio a quebrar; versionamento fica a cargo do python-semantic-release via Conventional Commits |
 | V. Idioma — Domínio em pt-BR | PASS — este plano e os demais artefatos de design estão em pt-BR; nomes de tool/parâmetro seguem inglês por serem superfície de protocolo (ver `research.md` §3) |
 
 Nenhuma violação — **Complexity Tracking** não se aplica.
