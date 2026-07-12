@@ -32,7 +32,7 @@ qualquer conectado via stdio ao comando acima:
    `{"consulta": "background tasks"}` → espera-se que
    `08 Background Tasks - BackgroundTasks` apareça nos resultados.
 2. **Busca sem match**: `buscar_documentos` com
-   `{"consulta": "termo-que-nao-existe-em-nenhum-doc"}` → espera-se `[]`.
+   `{"consulta": "termo-que-nao-existe-em-nenhuma-referencia"}` → espera-se `[]`.
 3. **Busca inválida**: `buscar_documentos` com `{"consulta": ""}` →
    espera-se erro de validação.
 4. **Obter documento (User Story 2)**: pegue um `id_documento` retornado no

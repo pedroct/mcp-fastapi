@@ -1,0 +1,55 @@
+[project]
+name = "mcp-fastapi"
+version = "0.1.0"
+description = "Servidor MCP da documentação do FastAPI, para apoio a uma LLM durante o desenvolvimento utilizando o FastAPI."
+authors = [
+    { name = "Pedro Teixeira", email = "contato@pedroct.com.br" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "mcp>=1.28.1",
+]
+
+[build-system]
+requires = ["uv_build>=0.11.14,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "bandit",
+    "commitizen",
+    "mypy",
+    "pip-audit",
+    "pre-commit",
+    "pytest",
+    "pytest-cov>=7.1.0",
+    "ruff",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src", "tests"]
+
+[tool.coverage.run]
+source = ["src"]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "0.1.0"
+tag_format = "v$version"
+
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+allow_zero_version = true
+commit_parser = "conventional"
+
+[tool.semantic_release.branches.main]
+match = "main"

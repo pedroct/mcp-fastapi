@@ -1,0 +1,25 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.21
+    hooks:
+      - id: ruff-check
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v2.2.0
+    hooks:
+      - id: mypy
+        additional_dependencies: ["mcp"]
+
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.9.4
+    hooks:
+      - id: bandit
+        args: ["-c", "pyproject.toml"]
+        additional_dependencies: ["bandit[toml]"]
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.16.4
+    hooks:
+      - id: commitizen-check
+        stages: [commit-msg]

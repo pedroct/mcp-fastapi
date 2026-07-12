@@ -52,18 +52,35 @@ Cobre User Story 2 (P2) — FR-003, FR-007.
 }
 ```
 
-**Output**:
+**Output** (encontrado):
 ```json
 {
+  "encontrado": true,
   "id_documento": "08 Background Tasks - BackgroundTasks",
   "titulo": "Background Tasks - BackgroundTasks",
-  "conteudo": "...conteúdo markdown completo e sem modificação..."
+  "conteudo": "...conteúdo markdown completo e sem modificação...",
+  "mensagem": null
+}
+```
+
+**Output** (não encontrado — FR-007; `titulo`/`conteudo` ficam `null`, não
+omitidos, para manter um shape único no schema):
+```json
+{
+  "encontrado": false,
+  "id_documento": "nao-existe",
+  "titulo": null,
+  "conteudo": null,
+  "mensagem": "documento 'nao-existe' não encontrado"
 }
 ```
 
 **Erros**:
-- `id_documento` que não existe no corpus → resposta clara de "não
-  encontrado" (não uma exceção não tratada) — FR-007.
+- `id_documento` ausente, vazio ou só espaço → erro de validação (não a
+  resposta de "não encontrado" acima) — mesma regra de `consulta` em
+  `buscar_documentos` (FR-006 aplicada por simetria).
+- `id_documento` que não existe no corpus → resposta "não encontrado" acima
+  (não uma exceção não tratada) — FR-007.
 
 ## `listar_documentos`
 
@@ -87,7 +104,7 @@ Cobre User Story 3 (P3) — FR-004, FR-010.
    `id_documento` do documento correspondente entre os 3 primeiros (SC-001
    exige ≥90% de acerto; testar os 3 exemplos nomeados na spec é a
    verificação mínima, não uma amostra estatística completa).
-2. `buscar_documentos({"consulta": "termo-que-nao-existe-em-nenhum-doc"})` →
+2. `buscar_documentos({"consulta": "termo-que-nao-existe-em-nenhuma-referencia"})` →
    `[]`.
 3. `buscar_documentos({"consulta": ""})` → erro de validação, não `[]`.
 4. `obter_documento({"id_documento": <id válido>})` → `conteudo` idêntico ao
@@ -96,3 +113,5 @@ Cobre User Story 3 (P3) — FR-004, FR-010.
    encontrado", sem exceção não tratada (SC-005).
 6. `listar_documentos({})` → tamanho da lista igual à quantidade de arquivos
    em `docs/references/*.md` (SC-003).
+7. `obter_documento({"id_documento": ""})` → erro de validação, não a
+   resposta de "não encontrado" (FR-006 por simetria com `consulta`).
